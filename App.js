@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DotIndicator } from 'react-native-indicators'
 
 const App = () => {
+  //firebase Integrated
+  //Feature Done
   const [stateLogin, setStateLogin] = useState('');
   const [Loading, setLoading] = useState(true)
   const getItem = async () => {
