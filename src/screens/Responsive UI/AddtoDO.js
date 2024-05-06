@@ -15,17 +15,6 @@ import { launchImageLibrary } from 'react-native-image-picker';
 const AddtoDO = ({ navigation }) => {
   const [title, setTitle] = useState('')
   const [selectedImage, setSelectedImage] = useState('')
-  console.log("🚀 ~ AddtoDO ~ selectedImage:", selectedImage)
-  const Logout = () => {
-    auth()
-      .signOut()
-      .then(() => {
-        navigation.navigate('Login')
-      })
-      .then(()=>{
-        AsyncStorage.clear()
-      })
-  }
   handleCameraLaunch = ()=>{
     const options = {
       mediaType:'photo',
@@ -42,7 +31,6 @@ const AddtoDO = ({ navigation }) => {
       console.warn('Error importing image')
     } else{
       const imageUri = response.uri || response.assets?.[0]?.uri
-      console.log("🚀 ~ App ~ response:", response)
       setSelectedImage(imageUri)
     }
   })
@@ -71,22 +59,48 @@ launchImageLibrary(options,response=>{
     const imageUri = response.uri 
     setSelectedImage(imageUri)
   }
-})}
+})
+.then(
+  console.log('first')
+)
+}
+const addImage = ()=>{
+  firestore()
+  .collection('Images')
+  .doc('Image')
+  .set({
+    img:selectedImage
+  })
+  .then(()=>{
+    navigation.navigate('Dashboard')
+  })
+}
+const [loading, setLoading] = useState(false)
   const addData = () => {
-    firestore()
-      .collection('Todo')
-      .doc(title)
-      .set({
-        task: task,
-      })
-      .then(() => {
-        console.log('User added!');
-        navigation.navigate('Dashboard')
-      })
-      .then(() => {
-        setTitle('')
-        setTask('')
-      })
+    if (title==='') {
+      console.warn('Title or task cannot be Empty');
+    }
+    else if (task==='') {
+      console.warn('Title or task cannot be Empty');
+    }
+    else{
+      setLoading(true)
+      firestore()
+        .collection('Todo')
+        .doc(title)
+        .set({
+          task: task,
+        })
+        .then(() => {
+          setLoading(false)
+          console.log('User added!');
+          navigation.navigate('Dashboard')
+        })
+        .then(() => {
+          setTitle('')
+          setTask('')
+        }
+      )}
   }
   const [task, setTask] = useState('')
   const [filter, setFilter] = useState([])
@@ -119,7 +133,7 @@ launchImageLibrary(options,response=>{
       <View style={Styles.viewTwo}></View>
       <KeyboardAvoidingView behavior='position' enabled keyboardVerticalOffset={0}>
         <View style={{
-          height: '20%',
+          height: '18%',
           justifyContent: 'center'
         }}>
           <Text style={Styles.MainText}>
@@ -127,7 +141,7 @@ launchImageLibrary(options,response=>{
           </Text>
         </View>
         <View style={{
-          height: '25%',
+          height: '18%',
           alignItems: 'center',
           marginLeft: 25,
           justifyContent: 'center'
@@ -160,33 +174,33 @@ launchImageLibrary(options,response=>{
           <CustomTI title={'Enter Your Task'} val={task} onChange={(val) => setTask(val)} />
         </View>
         <View style={{
-          height: '6%',
-          marginTop: 10,
+          height: '9%',
+          marginTop: 5,
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <CustomButton title={'Add to List'} action={addData} />
+          <CustomButton loading={loading} title={'Add to List'} action={addData}/>
         </View>
         <View style={{
-          height: '6%',
-          marginTop: 10,
+          height: '9%',
+          marginTop: 5,
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <CustomButton title={'Show List'} action={()=>navigation.navigate('Dashboard')} />
+          <CustomButton title={'Show Image'} action={addImage} />
          
         </View>
         <View style={{
-          height: '6%',
-          marginTop: 10,
+          height: '9%',
+          marginTop: 5,
           alignItems: 'center',
           justifyContent: 'center'
         }}>
            <CustomButton title={'Image'} action={openImagePicker} />
         </View>
         <View style={{
-          height: '6%',
-          marginTop: 10,
+          height: '9%',
+          marginTop: 5,
           alignItems: 'center',
           justifyContent: 'center'
         }}>

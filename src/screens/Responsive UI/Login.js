@@ -14,12 +14,12 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('')
   const [NewStateLogin, setNewStateLogin] = useState('true')
   const Login = () => {
-    console.log('Hello')
+    // console.log('Hello')
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User has been loged in')
-        navigation.replace('Dashboard')
+        navigation.replace('Options')
         AsyncStorage.setItem('@Login', NewStateLogin)
       })
 
