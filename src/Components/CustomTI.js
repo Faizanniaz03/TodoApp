@@ -9,10 +9,10 @@ const CustomTI = ({onChange,val,title}) => {
             <TextInput placeholder={title} style={{
                 borderRadius:10,
                 backgroundColor:'white',
-                marginHorizontal:15,
+                marginHorizontal:20,
                 paddingLeft:20,
                 fontFamily:'Poppins-Medium'
-            }} placeholderTextColor={black}
+            }} placeholderTextColor={'grey'}
             onChangeText={onChange}
             value={val}
             />

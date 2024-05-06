@@ -8,11 +8,32 @@ import AddtoDO from './src/screens/Responsive UI/AddtoDO';
 import Dashboard from './src/screens/Responsive UI/Dashboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DotIndicator } from 'react-native-indicators'
+import OneSignal from 'react-native-onesignal';
+import { Provider } from 'react-redux';
+import Option from './src/screens/Responsive UI/Option';
+import RecipesList from './src/screens/Responsive UI/RecipesList';
+import RemindersList from './src/screens/Responsive UI/RemindersList';
+import ShowReminders from './src/screens/Responsive UI/ShowReminders';
+import ShowRecipe from './src/screens/Responsive UI/ShowRecipe';
 
 const App = () => {
-  //firebase Integrated
-  //Feature Done
-  ///dsadasd
+  const OneSignalFunction = ()=>{
+OneSignal.setAppId('bc333108-000b-4fdd-afd4-840154365607');
+OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
+  console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
+  let notification = notificationReceivedEvent.getNotification();
+  console.log("notification: ", notification);
+  const data = notification.additionalData
+  console.log("additionalData: ", data);
+  notificationReceivedEvent.complete(notification);
+});
+OneSignal.setNotificationOpenedHandler(notification => {
+  console.log("OneSignal: notification opened:", notification);
+});
+  }
+  useEffect(()=>{
+    OneSignalFunction()
+  },[])
   const [stateLogin, setStateLogin] = useState('');
   const [Loading, setLoading] = useState(true)
   const getItem = async () => {
@@ -28,10 +49,7 @@ const App = () => {
   useEffect(() => {
     getItem();
   }, []);
-
   const Stack = createNativeStackNavigator();
-
- 
   if (Loading == true ) {
     return (
       <View style={styles.loadingContainer}>
@@ -39,21 +57,23 @@ const App = () => {
       </View>
     );
   }
-
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={stateLogin ? 'Dashboard' : 'Login'}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={stateLogin ? 'Options' : 'Login'}>
+        <Stack.Screen name='Options' component={Option} />
         <Stack.Screen name='SignUp' component={SignUp} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Addtodo' component={AddtoDO} />
         <Stack.Screen name='Dashboard' component={Dashboard} />
+        <Stack.Screen name='RecipesList' component={RecipesList} />
+        <Stack.Screen name='RemindersList' component={RemindersList} />
+        <Stack.Screen name='ShowReminders' component={ShowReminders} />
+        <Stack.Screen name='ShowRecipes' component={ShowRecipe} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default App;
-
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
@@ -244,7 +264,6 @@ const styles = StyleSheet.create({
 //   }
 //   )
 //   }
-
 //   handleCameraLaunch = ()=>{
 //     const options = {
 //       mediaType:'photo',

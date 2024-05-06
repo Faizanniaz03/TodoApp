@@ -1,13 +1,17 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Button, primaryColor, regularFont } from '../utils/Styles'
 // {title,action,bgColor}
 const CustomButton = (props) => {
     return (
     <View>
+      <View style={{
+        alignItems:'center',
+        marginTop:20
+      }}>
       <TouchableOpacity style={{
                     borderWidth:2,
-                    backgroundColor:primaryColor,
+                    backgroundColor:props.color ? props.color : primaryColor,
                     borderColor:'#55847A',
                     paddingVertical:10,
                     width:240,
@@ -16,14 +20,20 @@ const CustomButton = (props) => {
                 activeOpacity={0.5}
                 onPress={props.action}
                 >
+                    {props.loading ? 
+                    <ActivityIndicator size={'large'} color={'white'}/>    
+                :
+                
                     <Text style={{
                         fontFamily:'Poppins-Medium',
-                        color:'white',
+                        color:props.text ? props.text : 'white' ,
                         textAlign:'center'
                     }}>
                         {props.title}
                     </Text>
+                }
                 </TouchableOpacity>
+      </View>
     </View>
   )
 }
