@@ -72,9 +72,9 @@ const Styles = StyleSheet.create({
                 width:'80%'
               },
         MainText:{
-            fontFamily: 'Poppins-Medium',
-            fontSize: 23,
-            color: 'black',
+            fontFamily: 'Poppins-Bold',
+            fontSize: 21,
+            color: primaryColor,
             textAlign: 'center',
         },
         pentagon:{
@@ -89,7 +89,8 @@ const Styles = StyleSheet.create({
             borderRightColor: "transparent",
             borderTopWidth: 25,
             borderTopColor: "#55847A",
-          }
+          },
+          
 
         
      })

@@ -5,13 +5,11 @@ import { Styles, primaryColor } from '../../utils/Styles';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { DotIndicator } from 'react-native-indicators'
 import CustomButton from '../../Components/CustomButton';
-
 const ShowReminders = ({ navigation }) => {
     const [remindersList, setRemindersList] = useState('')
     const [loading, setLoading] = useState(true)
     const getRemindersList = async () => {
         const users = await firestore().collection('Reminders').get()
-        // console.log("🚀 ~ getRemindersList ~ users:", users)
         const remindersData = users.docs.map((doc => ({
             id: doc.id,
             ...doc.data()
@@ -66,11 +64,12 @@ const ShowReminders = ({ navigation }) => {
                                 <View style={{
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
+                                    alignItems:'center',
                                     paddingRight: 20
                                 }}>
                                     <Text style={styles.mainText}> {index + 1} . {item.Reminders}</Text>
                                     <TouchableOpacity onPress={() => deleteEntry(item.id)}>
-                                        <AntDesign name={'delete'} size={30} />
+                                        <AntDesign name={'delete'} size={30} color={'white'}/>
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -89,7 +88,6 @@ const ShowReminders = ({ navigation }) => {
         </View>
     )
 }
-
 export default ShowReminders
 
 const styles = StyleSheet.create({

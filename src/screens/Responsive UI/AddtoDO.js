@@ -112,19 +112,15 @@ const [loading, setLoading] = useState(false)
     }}>
       {modal ?
        <Modal isVisible={modal} hasBackdrop={true} backdropColor={"black"} backdropOpacity={0.35} onBackButtonPress={() => showModal(false)} animationOut={"slideOutDown"} animationIn={'slideInUp'} animationInTiming={1000} animationOutTiming={3000} onBackdropPress={() => showModal(false)} >
-
         <View>
           <Text style={{
             fontSize: 40,
             fontFamily: 'Outfit-Bold',
             textAlign: 'center',
-
-
           }}>
             Your task has been added Successfully
           </Text>
           <CustomButton title={'Close'} action={() => setModal(false)}/>
-
         </View>
       </Modal> 
       :
@@ -132,79 +128,36 @@ const [loading, setLoading] = useState(false)
        <View style={Styles.viewOne}></View>
       <View style={Styles.viewTwo}></View>
       <KeyboardAvoidingView behavior='position' enabled keyboardVerticalOffset={0}>
-        <View style={{
-          height: '18%',
-          justifyContent: 'center'
-        }}>
+        <View style={styles.titleView}>
           <Text style={Styles.MainText}>
             Welcome Onboard!
           </Text>
         </View>
-        <View style={{
-          height: '18%',
-          alignItems: 'center',
-          marginLeft: 25,
-          justifyContent: 'center'
-        }}>
+        <View style={styles.image}>
           <Image source={require('../../assets/images/todoList3.png')} />
         </View>
-        <View style={{
-          height: "8%",
-          justifyContent: 'center'
-        }}>
-          <Text style={{
-            fontFamily: 'Poppins-Medium',
-            fontSize: 14,
-            textAlign: 'center',
-            color: '#55847A'
-          }}>
+        <View style={styles.textInputs}>
+          <Text style={styles.detailsText}>
             Add What your want to do later on..
           </Text>
         </View>
-        <View style={{
-          height: '8%',
-          justifyContent: "center"
-        }}>
+        <View style={styles.textInputs}>
           <CustomTI title={'Enter Title of your task'} val={title} onChange={(val) => setTitle(val)} />
         </View>
-        <View style={{
-          height: '8%',
-          justifyContent: "center"
-        }}>
+        <View style={styles.textInputs}>
           <CustomTI title={'Enter Your Task'} val={task} onChange={(val) => setTask(val)} />
         </View>
-        <View style={{
-          height: '9%',
-          marginTop: 5,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+        <View style={styles.customButtons}>
           <CustomButton loading={loading} title={'Add to List'} action={addData}/>
         </View>
-        <View style={{
-          height: '9%',
-          marginTop: 5,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+        <View style={styles.customButtons}>
           <CustomButton title={'Show Image'} action={addImage} />
-         
         </View>
-        <View style={{
-          height: '9%',
-          marginTop: 5,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+        <View style={styles.customButtons}>
            <CustomButton title={'Image'} action={openImagePicker} />
         </View>
-        <View style={{
-          height: '9%',
-          marginTop: 5,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-                     <CustomButton title={'Camera'} action={handleCameraLaunch} />
+        <View style={styles.customButtons}>
+           <CustomButton title={'Camera'} action={handleCameraLaunch} />
         </View>
       </KeyboardAvoidingView>
       </View>
@@ -215,4 +168,32 @@ const [loading, setLoading] = useState(false)
 
 export default AddtoDO
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  customButtons:{
+    height: '9%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textInputs:{
+    height: '8%',
+    marginBottom:5,
+    justifyContent: "center"
+  },
+  detailsText:{
+    fontFamily: 'Poppins-Medium',
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#55847A'
+  },
+  image:{
+    height: '16%',
+    alignItems: 'center',
+    marginLeft: 25,
+    justifyContent: 'flex-end'
+  },
+  titleView:{
+    height: '20%',
+    justifyContent: 'center',
+    marginTop:5
+  }
+})

@@ -15,6 +15,7 @@ import RecipesList from './src/screens/Responsive UI/RecipesList';
 import RemindersList from './src/screens/Responsive UI/RemindersList';
 import ShowReminders from './src/screens/Responsive UI/ShowReminders';
 import ShowRecipe from './src/screens/Responsive UI/ShowRecipe';
+import Splash from './src/screens/Splash';
 
 const App = () => {
   const OneSignalFunction = ()=>{
@@ -49,6 +50,12 @@ OneSignal.setNotificationOpenedHandler(notification => {
   useEffect(() => {
     getItem();
   }, []);
+  const [splash,setSplash] = useState(false)
+  useEffect(()=>{
+    setTimeout(() => {
+      setSplash(true)
+    }, 3000);
+  },[])
   const Stack = createNativeStackNavigator();
   if (Loading == true ) {
     return (
@@ -59,7 +66,10 @@ OneSignal.setNotificationOpenedHandler(notification => {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={stateLogin ? 'Options' : 'Login'}>
+     
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={stateLogin ? Option :'Login'} >
+      {splash ?
+        <>
         <Stack.Screen name='Options' component={Option} />
         <Stack.Screen name='SignUp' component={SignUp} />
         <Stack.Screen name='Login' component={Login} />
@@ -69,7 +79,12 @@ OneSignal.setNotificationOpenedHandler(notification => {
         <Stack.Screen name='RemindersList' component={RemindersList} />
         <Stack.Screen name='ShowReminders' component={ShowReminders} />
         <Stack.Screen name='ShowRecipes' component={ShowRecipe} />
-      </Stack.Navigator>
+        </>
+        :
+        <Stack.Screen name='Splash' component={Splash} /> 
+        }
+        </Stack.Navigator>
+      
     </NavigationContainer>
   );
 };

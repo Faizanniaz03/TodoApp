@@ -103,19 +103,13 @@ const Login = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={{
-          height: '8%',
+          height: '10%',
           alignItems: 'center',
           justifyContent: 'flex-start'
         }}>
           <CustomButton title={'Login'} action={Login} />
         </View>
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '3%'
-        }}>
           <CustomTO details={'Dont have an account?'} title={'Sign Up'} action={() => navigation.navigate('SignUp')} />
-        </View>
       </KeyboardAvoidingView>
     </ScrollView>
   )
